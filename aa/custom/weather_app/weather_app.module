@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function weather_app_help($route_name, $route_match) {
+  switch ($route_name) {
+    case 'help.page.weather_app':
+      return '<p>' . t('Displays weather information from an API.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function weather_app_theme() {
+  return [
+    'weather_app_block' => [
+      'variables' => [
+        'location' => NULL,
+        'temperature' => NULL,
+      ],
+      'template' => 'weather-app-block',
+    ],
+  ];
+}
+
+/**
+ * Preprocess function for weather_app_block theme hook.
+ */
+function template_preprocess_weather_app_block(array &$variables) {
+  $location = 'Istanbul';
+  $weather_data = weather_app_get_weather($location);
+
+  $variables['location'] = $location;
+  $variables['temperature'] = $weather_data['days'][0]['temp'];
+}
+
+/**
+ * Fetches weather data from the Visual Crossing API.
+ *
+ * @param string $location
+ *   The location to get the weather for.
+ *
+ * @return array
+ *   The weather data.
+ */
+function weather_app_get_weather($location) {
+  $url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/istanbul?unitGroup=metric&key=7DXVW598F4WMCJDSWLL8H8P22&contentType=json';
+
+  $response = \Drupal::httpClient()->get($url);
+  $data = json_decode($response->getBody(), TRUE);
+
+  return $data;
+}
+

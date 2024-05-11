@@ -1,0 +1,25 @@
+<div class="weather-info">
+  <h1>Weather for {{ city }}</h1>
+  {% if weather %}
+    <div class="weather-icon">
+      {% set condition = weather.currentConditions.conditions|lower %}
+      {% if 'clear' in condition %}
+        <img src="modules/custom/weather_app/images/weather/clear.png" alt="Clear">
+      {% elseif 'cloudy' in condition %}
+        <img src="modules/custom/weather_app/images/weather/cloudy.png" alt="Cloudy">
+      {% elseif 'rain' in condition %}
+        <img src="modules/custom/weather_app/images/weather/rain.png" alt="Rain">
+      {% elseif 'snow' in condition %}
+        <img src="modules/custom/weather_app/images/weather/snow.png" alt="Snow">
+      {% else %}
+        <img src="modules/custom/weather_app/images/weather/na.png" alt="N/A">
+      {% endif %}
+    </div>
+    <p>Temperature: <span>{{ weather.currentConditions.temp }}°C</span></p>
+    <p>Conditions: <span>{{ weather.currentConditions.conditions }}</span></p>
+    <p>Humidity: <span>{{ weather.currentConditions.humidity }}%</span></p>
+  {% else %}
+    <p>No weather data available.</p>
+  {% endif %}
+</div>
+

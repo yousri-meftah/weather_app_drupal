@@ -1,0 +1,9 @@
+name: 'Weather App'
+type: module
+description: 'A custom module to display weather information.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:field
+  - drupal:text
+

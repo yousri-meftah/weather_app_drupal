@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function weather_app_theme() {
+  return [
+    'weather_template' => [
+      'variables' => [
+        'city' => NULL,
+        'weather' => NULL,
+      ],
+      'template' => 'weather-template',
+    ],
+  ];
+}
+

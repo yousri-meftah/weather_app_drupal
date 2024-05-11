@@ -1,0 +1,25 @@
+<div class="weather-info">
+  <h1>Weather for {{ city }}</h1>
+  {% if weather %}
+    <div class="weather-icon">
+      {% set condition = weather.currentConditions.conditions|lower %}
+      {% if 'clear' in condition %}
+        <i class="wi wi-day-sunny"></i>
+      {% elseif 'cloudy' in condition %}
+        <i class="wi wi-cloudy"></i>
+      {% elseif 'rain' in condition %}
+        <i class="wi wi-rain"></i>
+      {% elseif 'snow' in condition %}
+        <i class="wi wi-snow"></i>
+      {% else %}
+        <i class="wi wi-na"></i>
+      {% endif %}
+    </div>
+    <p>Temperature: {{ weather.currentConditions.temp }}°C</p>
+    <p>Conditions: {{ weather.currentConditions.conditions }}</p>
+    <p>Humidity: {{ weather.currentConditions.humidity }}%</p>
+  {% else %}
+    <p>No weather data available.</p>
+  {% endif %}
+</div>
+
